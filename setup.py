@@ -20,6 +20,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'chat1 = llama_chat.chat1:main',
+            'prompt = llama_chat.prompt:main',
+            'llama_sub = llama_chat.llama_sub:main',
         ],
     },
 )
