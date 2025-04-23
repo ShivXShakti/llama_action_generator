@@ -45,7 +45,7 @@ class LlamaNode(Node):
 
         Respond with a single JSON object. DO NOT include any explanation, extra text, or multiple examples.
 
-        Task: pick up the bottle from ground and place it in red container."""}
+        Task: pick up the remote from the ground and place it in red container."""}
         ],
         max_tokens=256
         )
