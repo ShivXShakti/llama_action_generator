@@ -25,7 +25,7 @@ Extract structured actions in this JSON format:
   "end_location": "<end_location>"
 }
 
-Task: {"pick up the screwdriver from the table and place it on the shelf."}
+Task: {"task."}
 """
             self.publisher_.publish(msg)
             self.get_logger().info('Published prompt to LLaVA')
