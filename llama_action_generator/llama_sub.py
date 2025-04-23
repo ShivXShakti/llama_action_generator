@@ -1,42 +1,32 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
-from llama_cpp import Llama
 import json
 
-class LlamaNode(Node):
+class LlamaJsonSubscriber(Node):
     def __init__(self):
-        super().__init__('llama_node')
-
-        self.subscription = self.create_subscription(String, '/llama_output', self.listener_callback, 10)
-        self.llama_action = None
+        super().__init__('llama_json_subscriber')
+        self.subscription = self.create_subscription(
+            String,
+            '/llama_output',
+            self.listener_callback,
+            10
+        )
+        self.subscription  # prevent unused variable warning
+        self.get_logger().info("Llama JSON Subscriber is up and listening to /llama_output...")
 
     def listener_callback(self, msg):
-        self.llama_action = msg.data
         try:
-            action_dict = json.loads(self.llama_action)
-
-            action = action_dict.get("action", "")
-            obj = action_dict.get("object", "")
-            start_location = action_dict.get("start_location", "")
-            end_location = action_dict.get("end_location", "")
-            if obj in ["tv", "bottle", "glass"]:
-                print(f"Working... in list")
-            else:
-                print(f"didn't work...")
-
-            print(f"Action: {type(action)}")
-            print(f"Object: {obj}")
-            print(f"Start Location: {start_location}")
-            print(f"End Location: {end_location}")
-
-        except json.JSONDecodeError as e:
-            print(f"Failed to parse JSON: {e}")
-
+            data = json.loads(msg.data)
+            self.get_logger().info("Received JSON:")
+            for key, value in data.items():
+                self.get_logger().info(f"{key}: {value}")
+        except json.JSONDecodeError:
+            self.get_logger().error("Failed to decode JSON: " + msg.data)
 
 def main(args=None):
     rclpy.init(args=args)
-    node = LlamaNode()
+    node = LlamaJsonSubscriber()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()

@@ -17,7 +17,7 @@ setup(
     maintainer_email='kuldeeplakhansons@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
-    tests_require=['pytest'],
+    #tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             'chat1 = llama_action_generator.chat1:main',

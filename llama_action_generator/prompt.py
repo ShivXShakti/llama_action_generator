@@ -24,7 +24,6 @@ Extract structured actions in this JSON format:
   "start_location": "<start_location>",
   "end_location": "<end_location>"
 }
-ONLY return JSON output. No extra text.
 
 Task: {"pick up the screwdriver from the table and place it on the shelf."}
 """
